@@ -1,5 +1,30 @@
 .App {
   text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+.main-menu {
+	background-color: rgb(206, 206, 206);
+	height: 100vh;
+}
+
+.jumbotron-main-menu {
+	color: rgb(62, 200, 255);
+	background-color: rgb(95, 81, 81);
+}
+
+.main-menu-form {
+	margin-top: 120px;
+	color: rgb(0, 4, 255);
+}
+
+.timer-options-yes {
+	
+}
+
+.timer-options-no {
+	visibility: hidden;
 }
 
 .inquizheader {
@@ -7,6 +32,15 @@
 	font-size:20px;
 	color:#3a8a9e;
 	margin-bottom: 70px;
+}
+
+.start-quiz-btn {
+	height: 40px;
+	width: 125px;
+	background:linear-gradient(to bottom, #50abf7 5%, #6e58be 100%);
+	background-color:#49d5ff;
+	border-radius:15px;
+	border:1px solid #d6bcd6;
 }
 
 .questioncount {
@@ -18,7 +52,7 @@
 
 .question {
 	margin: auto;
-	color:#3a8a9e;
+	color:#0d4250;
 	font-family:Arial;
 	font-size:17px;
 	width:700px;
@@ -79,4 +113,9 @@
 .selected-option:hover {
   background:linear-gradient(to bottom, #6f0ac2 5%, #9303e6 100%);
 	background-color:#6f0ac2;
+}
+
+.quiz {
+	height: 100vh;
+	background:linear-gradient(to bottom, #aeccd8 5%, #51aa88 100%);
 }

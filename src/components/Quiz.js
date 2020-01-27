@@ -16,6 +16,7 @@ class Quiz extends Component {
             curQuestionID: "",
             curOptions: [],
             curAnswer: null,
+            qAnswer: "",
             playerAnswer: "",
             curQuestionNum: 0,
         }
@@ -46,25 +47,26 @@ class Quiz extends Component {
         this.getNewQuestion()
     }
 
-    getNewQuestion() {
+    async getNewQuestion() {
         var self = this;
         var getQuestion = "https://opentdb.com/api.php?amount=1"
         getQuestion += "&token=" + this.state.curToken
-            axios.get(getQuestion)
-            .then(function (response) {
-                let optionsArray = response.data.results[0].incorrect_answers
-                optionsArray.push(response.data.results[0].correct_answer)
-                let newArr = self.randomizeArray(optionsArray)
-                let curquestion = response.data.results[0].question
-                self.setState((prevState, props) => ({
-                    curQuestion: curquestion,
-                    curOptions: newArr,
-                    curQuestionNum: prevState.curQuestionNum + 1
-                  }));
+        await axios.get(getQuestion)
+        .then(function (response) {
+            let optionsArray = response.data.results[0].incorrect_answers
+            optionsArray.push(response.data.results[0].correct_answer)
+            let newArr = self.randomizeArray(optionsArray)
+            let curquestion = response.data.results[0].question
+            console.log(curquestion)
+            self.setState((prevState, props) => ({
+                qAnswer: response.data.results[0].correct_answer,
+                curQuestion: curquestion.replace(/&quot;/g, '"'),
+                curOptions: newArr,
+                curQuestionNum: prevState.curQuestionNum + 1                  }));
             })
-            .catch(function (error) {
-              console.log(error);
-            })
+        .catch(function (error) {
+          console.log(error);
+        })
     }
 
     randomizeArray(array) {
@@ -96,6 +98,7 @@ class Quiz extends Component {
     renderAnswerOptions() {
         const answercomponents = this.state.curOptions.map((option) =>
             <AnswerOption
+            key={option}
             curoption={option} 
             playeranswer={this.state.playerAnswer}
             updateanswer={this.updatePlayerAnswer}
@@ -114,7 +117,7 @@ class Quiz extends Component {
 
     render() {
         return(
-            <div>
+            <div className="quiz" >
                 <InQuizHeader playername={this.props.playername}
                 curQuestionNum={this.state.curQuestionNum}
                 totalquestions={this.props.totalquestions}
