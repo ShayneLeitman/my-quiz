@@ -59,21 +59,17 @@
 }
 
 .answer-options {
-  margin: 30px;;
-}
-
-.answer-options-list {
-  list-style-type: none;
-
+	text-align: center;
+  	margin: 30px;;
 }
 
 .answer-option {
-  margin: 8px;
+  	margin: 8px;
 }
 
 .option-button {
-  width:300px;
-  box-shadow: 3px 4px 0px 0px #899599;
+  	width:300px;
+  	box-shadow: 3px 4px 0px 0px #899599;
 	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
 	background-color:#ededed;
 	border-radius:15px;
@@ -85,17 +81,17 @@
 	font-size:17px;
 	padding:7px 25px;
 	text-decoration:none;
-  text-shadow:0px 1px 0px #e1e2ed;
+  	text-shadow:0px 1px 0px #e1e2ed;
 }
 
 .option-button:hover {
-  background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+  	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
 	background-color:#bab1ba;
 }
 
 .selected-option {
-  width:300px;
-  box-shadow: 3px 4px 0px 0px #6c72ba;
+  	width:300px;
+  	box-shadow: 3px 4px 0px 0px #6c72ba;
 	background:linear-gradient(to bottom, #9303e6 5%, #6f0ac2 100%);
 	background-color:#9303e6;
 	border-radius:15px;
@@ -111,11 +107,56 @@
 }
 
 .selected-option:hover {
-  background:linear-gradient(to bottom, #6f0ac2 5%, #9303e6 100%);
+  	background:linear-gradient(to bottom, #6f0ac2 5%, #9303e6 100%);
 	background-color:#6f0ac2;
 }
 
 .quiz {
 	height: 100vh;
 	background:linear-gradient(to bottom, #aeccd8 5%, #51aa88 100%);
+	align-items: center;
+	justify-content: center;
+}
+
+.submit-answer-btn {
+	width: 125px;
+	height: 45px;
+	box-shadow:inset 0px 1px 0px 0px #bee2f9;
+	background:linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
+	background-color:#63b8ee;
+	border-radius:10px;
+	border:1px solid #3866a3;
+	cursor:pointer;
+	color:#14396a;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #7cacde;
+}
+
+.quiz-submit-results-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.view-results-btn, .next-question-btn {
+	width: 125px;
+	height: 45px;
+	box-shadow:inset 0px 1px 0px 0px #bee2f9;
+	background:linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
+	background-color:#63b8ee;
+	border-radius:10px;
+	border:1px solid #3866a3;
+	display:inline-block;
+	cursor:pointer;
+	color:#14396a;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #7cacde;
 }

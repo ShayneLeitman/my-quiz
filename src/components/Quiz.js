@@ -19,6 +19,7 @@ class Quiz extends Component {
             qAnswer: "",
             playerAnswer: "",
             curQuestionNum: 0,
+            questionInProgress: false,
         }
 
         this.getNewQuestion = this.getNewQuestion.bind(this);
@@ -27,6 +28,8 @@ class Quiz extends Component {
         this.checkAnswer = this.checkAnswer.bind(this);
         this.renderAnswerOptions = this.renderAnswerOptions.bind(this);
         this.updatePlayerAnswer = this.updatePlayerAnswer.bind(this);
+        this.renderSubmitButton = this.renderSubmitButton.bind(this);
+        this.renderNextQButton = this.renderNextQButton.bind(this);
 
     }
 
@@ -62,8 +65,11 @@ class Quiz extends Component {
                 qAnswer: response.data.results[0].correct_answer,
                 curQuestion: curquestion.replace(/&quot;/g, '"'),
                 curOptions: newArr,
-                curQuestionNum: prevState.curQuestionNum + 1                  }));
-            })
+                curQuestionNum: prevState.curQuestionNum + 1,
+                playerAnswer: "",
+                questionInProgress: true
+            }));
+        })
         .catch(function (error) {
           console.log(error);
         })
@@ -95,22 +101,58 @@ class Quiz extends Component {
         })
     }
 
+    renderSubmitButton() {
+        return (
+            
+                <button
+                type="button"
+                className="submit-answer-btn"
+                onClick={() => this.setState(
+                    {questionInProgress: false})}
+                disabled={!this.state.questionInProgress
+                    || this.state.playerAnswer === ""}
+                >
+                Submit
+                </button>
+            
+        )
+    }
+
+    renderNextQButton() {
+        return (
+            
+                <button
+                type="button"
+                className={(this.props.totalquestions === this.state.curQuestionNum)
+                    ? "view-results-btn" : "next-question-btn"
+                }
+                onClick={() => this.setState(
+                    {questionInProgress: true})}
+                disabled={this.state.questionInProgress}
+                >
+                    {(this.props.totalquestions !== this.state.curQuestionNum)
+                    ? "Next" : "View Results"
+                    }
+                </button>
+            
+        )
+    }
+
     renderAnswerOptions() {
         const answercomponents = this.state.curOptions.map((option) =>
             <AnswerOption
             key={option}
-            curoption={option} 
+            curoption={option}
             playeranswer={this.state.playerAnswer}
             updateanswer={this.updatePlayerAnswer}
             answer={this.state.curAnswer}
+            questioninprogress={this.state.questionInProgress}
             />
 
         )
         return (
             <div className="answer-options">
-                <ul className="answer-options-list">
                 { answercomponents }
-                </ul>
             </div>
         )      
     }
@@ -118,15 +160,19 @@ class Quiz extends Component {
     render() {
         return(
             <div className="quiz" >
+
                 <InQuizHeader playername={this.props.playername}
                 curQuestionNum={this.state.curQuestionNum}
                 totalquestions={this.props.totalquestions}
                 />
 
-                 {this.renderQuestion() }
-
-                { this.renderAnswerOptions() }
-
+                { this.renderQuestion() }
+                <div>
+                    { this.renderAnswerOptions() }
+                </div>
+                <div className="quiz-submit-results-btn">
+                    { this.renderSubmitButton() }
+                </div>
             </div>
         )
     }

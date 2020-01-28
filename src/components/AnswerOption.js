@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 function AnswerOption(props) {
 
     return (
-        <li className="answer-option">
+        <div className="answer-option">
             <button
                 type="button"
                 className={ (props.playeranswer === props.curoption) ?
@@ -14,10 +14,11 @@ function AnswerOption(props) {
                     : 'option-button'
                 }
                 onClick={() => props.updateanswer(props.curoption)}
+                disabled={!props.questioninprogress}
             >
                 { props.curoption }
             </button>
-        </li>
+        </div>
     )
 
 }

@@ -24,7 +24,6 @@ class MainMenu extends Component {
       this.setState({
         [event.target.name]: event.target.value
       });
-      //console.log(event.target.value);
     }
   
     handleCheckChange() {
@@ -108,6 +107,7 @@ class MainMenu extends Component {
                   type="text"
                   value={this.state.playername}
                   onChange={this.handleChange}
+                  placeholder="Enter Player Name"
                 />
               </label>
               <br />
