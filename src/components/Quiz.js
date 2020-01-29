@@ -3,6 +3,7 @@ import axios from "axios"
 import InQuizHeader from "./InQuizHeader"
 import Question from "./Question"
 import AnswerOption from "./AnswerOption"
+import Timer from "./Timer"
 
 class Quiz extends Component {
 
@@ -20,6 +21,8 @@ class Quiz extends Component {
             playerAnswer: "",
             curQuestionNum: 0,
             questionInProgress: false,
+            //timerSelected: false,
+            timer: null,
         }
 
         this.getNewQuestion = this.getNewQuestion.bind(this);
@@ -30,10 +33,17 @@ class Quiz extends Component {
         this.updatePlayerAnswer = this.updatePlayerAnswer.bind(this);
         this.renderSubmitButton = this.renderSubmitButton.bind(this);
         this.renderNextQButton = this.renderNextQButton.bind(this);
+        this.nextQuestionOrResults = this.nextQuestionOrResults.bind(this);
+        this.handleTimer = this.handleTimer.bind(this);
+        this.renderTimer = this.renderTimer.bind(this);
 
     }
 
     async componentDidMount() {
+        this.setState({
+            timer: this.props.time,
+            //timerSelected: this.props.timerselected
+        })
         var self = this;
         if (this.state.curToken === "") {
             const getTokenURL = "https://opentdb.com/api_token.php?command=request";
@@ -60,7 +70,7 @@ class Quiz extends Component {
             optionsArray.push(response.data.results[0].correct_answer)
             let newArr = self.randomizeArray(optionsArray)
             let curquestion = response.data.results[0].question
-            console.log(curquestion)
+            //console.log(curquestion)
             self.setState((prevState, props) => ({
                 qAnswer: response.data.results[0].correct_answer,
                 curQuestion: curquestion.replace(/&quot;/g, '"'),
@@ -87,6 +97,10 @@ class Quiz extends Component {
 
     }
 
+    handleTimer() {
+
+    }
+
     renderQuestion() {
         return (
                 <Question
@@ -101,6 +115,14 @@ class Quiz extends Component {
         })
     }
 
+    nextQuestionOrResults() {
+        if (this.state.curQuestionNum != this.props.totalquestions) {
+            this.getNewQuestion()
+        } else {
+
+        }
+    }
+
     renderSubmitButton() {
         return (
             
@@ -109,8 +131,8 @@ class Quiz extends Component {
                 className="submit-answer-btn"
                 onClick={() => this.setState(
                     {questionInProgress: false})}
-                disabled={!this.state.questionInProgress
-                    || this.state.playerAnswer === ""}
+                //disabled={!this.state.questionInProgress
+                    //|| this.state.playerAnswer === ""}
                 >
                 Submit
                 </button>
@@ -126,15 +148,23 @@ class Quiz extends Component {
                 className={(this.props.totalquestions === this.state.curQuestionNum)
                     ? "view-results-btn" : "next-question-btn"
                 }
-                onClick={() => this.setState(
-                    {questionInProgress: true})}
-                disabled={this.state.questionInProgress}
+                onClick={this.nextQuestionOrResults}
                 >
-                    {(this.props.totalquestions !== this.state.curQuestionNum)
+                    {(this.props.totalquestions != this.state.curQuestionNum)
                     ? "Next" : "View Results"
                     }
                 </button>
             
+        )
+    }
+
+    renderTimer() {
+        return (
+            this.props.timerselected ? 
+            <Timer 
+            startTime={this.state.timer}
+            />
+            : null
         )
     }
 
@@ -158,6 +188,10 @@ class Quiz extends Component {
     }
 
     render() {
+
+        const submitOrResultsBtn = (this.state.questionInProgress)
+            ? this.renderSubmitButton() : this.renderNextQButton()
+
         return(
             <div className="quiz" >
 
@@ -167,11 +201,14 @@ class Quiz extends Component {
                 />
 
                 { this.renderQuestion() }
+
+                { this.renderTimer() }
+
                 <div>
                     { this.renderAnswerOptions() }
                 </div>
                 <div className="quiz-submit-results-btn">
-                    { this.renderSubmitButton() }
+                    { submitOrResultsBtn }
                 </div>
             </div>
         )

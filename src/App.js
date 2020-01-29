@@ -58,6 +58,7 @@ class App extends Component {
     return (
       <Quiz playername={this.state.playerName}
       time={this.state.timer}
+      timerselected={this.state.timerSelected}
       totalquestions={this.state.totalQuestions}
       
       />
