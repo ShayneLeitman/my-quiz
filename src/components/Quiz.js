@@ -12,17 +12,16 @@ class Quiz extends Component {
 
         this.state = {
             curToken:"",
-            previousQuestions: [],
             curQuestion: "",
-            curQuestionID: "",
             curOptions: [],
             curAnswer: null,
+            curScore: 0,
             qAnswer: "",
             playerAnswer: "",
             curQuestionNum: 0,
             questionInProgress: false,
             //timerSelected: false,
-            timer: null,
+            curTimer: null,
         }
 
         this.getNewQuestion = this.getNewQuestion.bind(this);
@@ -34,14 +33,23 @@ class Quiz extends Component {
         this.renderSubmitButton = this.renderSubmitButton.bind(this);
         this.renderNextQButton = this.renderNextQButton.bind(this);
         this.nextQuestionOrResults = this.nextQuestionOrResults.bind(this);
-        this.handleTimer = this.handleTimer.bind(this);
+        this.timerCountDown = this.timerCountDown.bind(this);
         this.renderTimer = this.renderTimer.bind(this);
+        this.startTimer = this.startTimer.bind(this);
+        this.submitAnswer = this.submitAnswer.bind(this);
 
     }
 
+    componentWillUnmount() {
+        if (this.props.timerselected) {
+            clearInterval(this.timer)
+        }
+    }
+
     async componentDidMount() {
+        console.log("Quiz did mount")
         this.setState({
-            timer: this.props.time,
+            curTimer: this.props.time,
             //timerSelected: this.props.timerselected
         })
         var self = this;
@@ -58,6 +66,10 @@ class Quiz extends Component {
             })
         }
         this.getNewQuestion()
+        this.setState({questionInProgress: true})
+        if (this.props.timerselected) {
+            this.startTimer()
+        }
     }
 
     async getNewQuestion() {
@@ -70,14 +82,13 @@ class Quiz extends Component {
             optionsArray.push(response.data.results[0].correct_answer)
             let newArr = self.randomizeArray(optionsArray)
             let curquestion = response.data.results[0].question
-            //console.log(curquestion)
+            console.log("Question")
             self.setState((prevState, props) => ({
                 qAnswer: response.data.results[0].correct_answer,
                 curQuestion: curquestion.replace(/&quot;/g, '"'),
                 curOptions: newArr,
                 curQuestionNum: prevState.curQuestionNum + 1,
-                playerAnswer: "",
-                questionInProgress: true
+                //playerAnswer: "",
             }));
         })
         .catch(function (error) {
@@ -97,8 +108,20 @@ class Quiz extends Component {
 
     }
 
-    handleTimer() {
+    startTimer() {
+        this.timer = setInterval(this.timerCountDown, 1000)
+    }
 
+    timerCountDown() {
+        console.log("timer")
+        let tmpTime = this.state.curTimer
+        if (tmpTime > 0 && 
+            this.state.questionInProgress !== false) {
+                this.setState({curTimer: tmpTime - 1})
+        } else {
+            clearInterval(this.timer)
+            this.setState({questionInProgress: false})
+        }
     }
 
     renderQuestion() {
@@ -115,11 +138,28 @@ class Quiz extends Component {
         })
     }
 
-    nextQuestionOrResults() {
-        if (this.state.curQuestionNum != this.props.totalquestions) {
-            this.getNewQuestion()
-        } else {
+    submitAnswer() {
+        this.setState({questionInProgress: false})
+        if (this.props.timerselected) {
+            clearInterval(this.timer)
+        }
+    }
 
+    nextQuestionOrResults() {
+        if (this.state.curQuestionNum < this.props.totalquestions) {
+            this.getNewQuestion()
+            this.setState({
+                playerAnswer: "",
+                questionInProgress: true,
+                curTimer: this.props.time,
+            })
+            if (this.props.timerselected) {
+                clearInterval(this.timer)
+                this.startTimer()
+            }
+        } else {
+            clearInterval(this.timer)
+            this.props.viewresults(this.state.curScore)
         }
     }
 
@@ -129,10 +169,9 @@ class Quiz extends Component {
                 <button
                 type="button"
                 className="submit-answer-btn"
-                onClick={() => this.setState(
-                    {questionInProgress: false})}
-                //disabled={!this.state.questionInProgress
-                    //|| this.state.playerAnswer === ""}
+                onClick={this.submitAnswer}
+                disabled={!this.state.questionInProgress
+                    || this.state.playerAnswer === ""}
                 >
                 Submit
                 </button>
@@ -149,6 +188,7 @@ class Quiz extends Component {
                     ? "view-results-btn" : "next-question-btn"
                 }
                 onClick={this.nextQuestionOrResults}
+                disabled={this.state.curQuestionNum == 0}
                 >
                     {(this.props.totalquestions != this.state.curQuestionNum)
                     ? "Next" : "View Results"
@@ -162,7 +202,7 @@ class Quiz extends Component {
         return (
             this.props.timerselected ? 
             <Timer 
-            startTime={this.state.timer}
+            curtime={this.state.curTimer}
             />
             : null
         )
