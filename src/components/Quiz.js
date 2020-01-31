@@ -20,7 +20,6 @@ class Quiz extends Component {
             playerAnswer: "",
             curQuestionNum: 0,
             questionInProgress: false,
-            //timerSelected: false,
             curTimer: null,
         }
 
@@ -50,7 +49,6 @@ class Quiz extends Component {
         console.log("Quiz did mount")
         this.setState({
             curTimer: this.props.time,
-            //timerSelected: this.props.timerselected
         })
         var self = this;
         if (this.state.curToken === "") {
@@ -88,7 +86,6 @@ class Quiz extends Component {
                 curQuestion: curquestion.replace(/&quot;/g, '"'),
                 curOptions: newArr,
                 curQuestionNum: prevState.curQuestionNum + 1,
-                //playerAnswer: "",
             }));
         })
         .catch(function (error) {
@@ -154,11 +151,11 @@ class Quiz extends Component {
                 curTimer: this.props.time,
             })
             if (this.props.timerselected) {
-                clearInterval(this.timer)
+                //clearInterval(this.timer)
                 this.startTimer()
             }
         } else {
-            clearInterval(this.timer)
+            //clearInterval(this.timer)
             this.props.viewresults(this.state.curScore)
         }
     }
@@ -188,7 +185,7 @@ class Quiz extends Component {
                     ? "view-results-btn" : "next-question-btn"
                 }
                 onClick={this.nextQuestionOrResults}
-                disabled={this.state.curQuestionNum == 0}
+                disabled={this.state.curQuestionNum == 0 || this.state.questionInProgress}
                 >
                     {(this.props.totalquestions != this.state.curQuestionNum)
                     ? "Next" : "View Results"

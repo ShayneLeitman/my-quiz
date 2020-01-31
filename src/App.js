@@ -35,10 +35,9 @@ class App extends Component {
     this.renderSwitch = this.renderSwitch.bind(this);
     this.viewResults = this.viewResults.bind(this);
     this.playQuizAgain = this.playQuizAgain.bind(this);
+    this.renderSpecificPage = this.renderSpecificPage.bind(this);
 
   }
-
-//https://opentdb.com/api.php?amount=1&type=multiple
 
   startQuiz(pname, numQ, time) {
     if (time !== null) {
@@ -58,7 +57,6 @@ class App extends Component {
 
   playQuizAgain() {
     this.setState({
-      score: 0,
       pageNum: 2,
     });
   }
@@ -69,6 +67,12 @@ class App extends Component {
       pageNum: 3,
     });
 
+  }
+
+  renderSpecificPage(pageNumber) {
+    this.setState({
+      pageNum: pageNumber,
+    });
   }
 
   renderMainMenu() {
@@ -96,6 +100,7 @@ class App extends Component {
         playername={this.state.playerName}
         totalquestions={this.state.totalQuestions}
         playquizagain={this.playQuizAgain}
+        returntomainmenu={this.renderSpecificPage}
         />
       )
   }
