@@ -10,14 +10,24 @@ class MainMenu extends Component {
         playername: "",
         numQuestions: 5,
         timerSelected: false,
-        timer: null
+        timer: null,
+        storedTimer: null
       };
   
       this.handleChange = this.handleChange.bind(this);
       this.handleCheckChange = this.handleCheckChange.bind(this);
       this.startQuiz = this.startQuiz.bind(this);
       this.renderTimerOption = this.renderTimerOption.bind(this);
-      this.renderTimerOption2 = this.renderTimerOption2.bind(this);
+    }
+
+    componentDidMount() {
+      this.setState({
+        playername: this.props.playername,
+        numQuestions: this.props.totalquestions,
+        timerSelected: this.props.timerselected,
+        timer: this.props.timer,
+        storedTimer: this.props.timer,
+      })
     }
   
     handleChange(event) {
@@ -28,43 +38,24 @@ class MainMenu extends Component {
   
     handleCheckChange() {
       if (!this.state.timerSelected) {
+        let tmp = (this.state.storedTimer == null) 
+          ? "30" : this.state.storedTimer
         this.setState((prevState, props) => ({
           timerSelected: !prevState.timerSelected,
-          timer: "45"
+          timer: tmp
         }));
       } else {
         this.setState((prevState, props) => ({
           timerSelected: !prevState.timerSelected,
-          timer: null
+          timer: null,
+          storedTimer: prevState.timer,
         }));
       }
     }
 
     startQuiz() {
-        //console.log(this.state.timer)
         this.props.startquiz(this.state.playername,
-            this.state.numQuestions, this.state.timer)
-    }
-
-    renderTimerOption2() {
-      return (
-        this.state.timerSelected ? (
-          <div className="timer-options" >
-            <label>
-              Seconds:
-              <select name="timer"
-              defaultValue="45"
-              onChange={this.handleChange}
-              >
-                <option value="15">15</option>
-                <option value="30">30</option>
-                <option value="45">45</option>
-                <option value="60">60</option>
-              </select>
-            </label>
-          </div>
-        ) : null
-      )
+            this.state.numQuestions, this.state.timer, this.state.timerSelected)
     }
 
     renderTimerOption() {
@@ -74,7 +65,7 @@ class MainMenu extends Component {
             <label>
               Seconds:
               <select name="timer"
-              defaultValue="45"
+              defaultValue={this.props.timerselected ? this.props.timer : "30"}
               onChange={this.handleChange}
               >
                 <option value="15">15</option>
@@ -105,7 +96,7 @@ class MainMenu extends Component {
                 <input
                   name="playername"
                   type="text"
-                  value={this.state.playername}
+                  defaultValue={this.state.playername}
                   onChange={this.handleChange}
                   placeholder="Enter Player Name"
                 />
@@ -118,12 +109,12 @@ class MainMenu extends Component {
                   type="number"
                   min="1"
                   max="20"
-                  defaultValue={this.state.numQuestions}
+                  defaultValue={this.props.totalquestions}
                   onChange={this.handleChange}
                 />
               </label>
               <br />
-              <label>
+              <label>   
                 Check this box to enable the timer:
                 <input
                   name="timerSelected"

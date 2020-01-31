@@ -102,7 +102,11 @@ class Quiz extends Component {
     }
 
     checkAnswer() {
-
+        if (this.state.qAnswer == this.state.playerAnswer) {
+            this.setState((prevState) => ({
+                curScore: prevState.curScore + 1
+            }))
+        }
     }
 
     startTimer() {
@@ -137,6 +141,7 @@ class Quiz extends Component {
 
     submitAnswer() {
         this.setState({questionInProgress: false})
+        this.checkAnswer()
         if (this.props.timerselected) {
             clearInterval(this.timer)
         }
@@ -148,10 +153,13 @@ class Quiz extends Component {
             this.setState({
                 playerAnswer: "",
                 questionInProgress: true,
-                curTimer: this.props.time,
+                //curTimer: this.props.time,
             })
             if (this.props.timerselected) {
                 //clearInterval(this.timer)
+                this.setState({
+                    curTimer: this.props.time,
+                })
                 this.startTimer()
             }
         } else {

@@ -16,7 +16,7 @@ class App extends Component {
       curQuestionID: "",
       curOptions: [],
       curAnswer: "",
-      totalQuestions: 0,
+      totalQuestions: 5,
       count: 0,
       score: 0,
       sessionToken: null,
@@ -39,17 +39,20 @@ class App extends Component {
 
   }
 
-  startQuiz(pname, numQ, time) {
-    if (time !== null) {
+  startQuiz(pname, numQ, time, timerselected) {
+    if (timerselected) {
       this.setState({
-        timerSelected: true,
         timer: time
+      });
+    } else {
+      this.setState({
+        timer: null
       });
     }
     this.setState({
+      timerSelected: timerselected,
       playerName:pname,
       score: 0,
-      mainMenu: false,
       totalQuestions: numQ,
       pageNum: 2,
     });
@@ -78,6 +81,10 @@ class App extends Component {
   renderMainMenu() {
     return (
       <MainMenu startquiz={this.startQuiz}
+      playername={this.state.playerName}
+      totalquestions={this.state.totalQuestions}
+      timer={this.state.timer}
+      timerselected={this.state.timerSelected}
       />
     )
   }
