@@ -47,27 +47,31 @@ class Quiz extends Component {
 
     async componentDidMount() {
         console.log("Quiz did mount")
-        this.setState({
-            curTimer: this.props.time,
-        })
         var self = this;
-        if (this.state.curToken === "") {
+        if (this.props.token === "") {
             const getTokenURL = "https://opentdb.com/api_token.php?command=request";
             await axios.get(getTokenURL)
             .then(function (response) {
-              self.setState({
+                self.props.settoken(response.data.token);
+                self.setState({
                     curToken: response.data.token
-                })
+                });
             })
             .catch(function (error) {
-              console.log(error);
+                console.log(error);
+            })
+        } else {
+            this.setState({
+                curToken: this.props.token
             })
         }
         this.getNewQuestion()
-        this.setState({questionInProgress: true})
-        if (this.props.timerselected) {
+        this.setState({
+            questionInProgress: true,
+            curTimer: this.props.time,
+        }, () => {if (this.props.timerselected) {
             this.startTimer()
-        }
+        }})
     }
 
     async getNewQuestion() {
@@ -89,7 +93,7 @@ class Quiz extends Component {
             }));
         })
         .catch(function (error) {
-          console.log(error);
+            console.log(error);
         })
     }
 
@@ -114,7 +118,7 @@ class Quiz extends Component {
     }
 
     timerCountDown() {
-        console.log("timer")
+        //console.log("timer")
         let tmpTime = this.state.curTimer
         if (tmpTime > 0 && 
             this.state.questionInProgress !== false) {
@@ -139,7 +143,7 @@ class Quiz extends Component {
         })
     }
 
-    submitAnswer() {
+    submitAnswer(event) {
         this.setState({questionInProgress: false})
         this.checkAnswer()
         if (this.props.timerselected) {
@@ -147,23 +151,21 @@ class Quiz extends Component {
         }
     }
 
-    nextQuestionOrResults() {
+    nextQuestionOrResults(event) {
         if (this.state.curQuestionNum < this.props.totalquestions) {
-            this.getNewQuestion()
             this.setState({
                 playerAnswer: "",
                 questionInProgress: true,
-                //curTimer: this.props.time,
+
             })
+            this.getNewQuestion()
             if (this.props.timerselected) {
-                //clearInterval(this.timer)
                 this.setState({
                     curTimer: this.props.time,
-                })
-                this.startTimer()
+                }, this.startTimer()
+                )
             }
         } else {
-            //clearInterval(this.timer)
             this.props.viewresults(this.state.curScore)
         }
     }

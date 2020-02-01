@@ -19,7 +19,7 @@ class App extends Component {
       totalQuestions: 5,
       count: 0,
       score: 0,
-      sessionToken: null,
+      sessionToken: "",
       firstGame: true,
       mainMenu: true,
       timerSelected: false,
@@ -36,6 +36,7 @@ class App extends Component {
     this.viewResults = this.viewResults.bind(this);
     this.playQuizAgain = this.playQuizAgain.bind(this);
     this.renderSpecificPage = this.renderSpecificPage.bind(this);
+    this.setAPIToken = this.setAPIToken.bind(this);
 
   }
 
@@ -56,6 +57,12 @@ class App extends Component {
       totalQuestions: numQ,
       pageNum: 2,
     });
+  }
+
+  setAPIToken(apiToken) {
+    this.setState({
+      sessionToken: apiToken
+    })  
   }
 
   playQuizAgain() {
@@ -96,6 +103,8 @@ class App extends Component {
       timerselected={this.state.timerSelected}
       totalquestions={this.state.totalQuestions}
       viewresults={this.viewResults}
+      token={this.state.sessionToken}
+      settoken={this.setAPIToken}
       />
     )
   }
@@ -133,8 +142,10 @@ class App extends Component {
 
 
     return (
+      <div className="test1">
       <div className="App">
         { this.renderSwitch() }
+      </div>
       </div>
     );
   }
