@@ -5,23 +5,39 @@
 }
 
 .test1 {
-	text-align: center;
 	background-color: rgb(0, 38, 161);
 	height: 100vh;
-	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.main-menu11 {
+	border-radius:15px;
+	height: 90vh;
+	width: 90vw;
+	background:linear-gradient(to top, #a36cad 5%, #bfa2d3 100%);
+}
+
+.jumbotron-main-menu11 {
+	color: rgb(62, 200, 255);
+	background-color: rgb(212, 14, 14);
+	border-radius:15px;
+	background:linear-gradient(to bottom, #d501ff 5%, #bfa2d3 90%);
 }
 
 .main-menu {
-	display: inline-block;
-	background:linear-gradient(to top, #d501ff 5%, #bfa2d3 100%);
+	border-radius:15px;
 	height: 90vh;
 	width: 90vw;
+	background:linear-gradient(to top, #a12121 5%, #bfa2d3 100%);
 }
 
 .jumbotron-main-menu {
 	color: rgb(62, 200, 255);
 	background-color: rgb(212, 14, 14);
-	background:linear-gradient(to bottom, #d501ff 5%, #bfa2d3 90%);
+	border-radius:15px;
+	background:linear-gradient(to bottom, #ff1414 5%, #bfa2d3 90%);
 }
 
 .main-menu-form {
@@ -29,12 +45,21 @@
 	color: rgb(0, 4, 255);
 }
 
-.timer-options-yes {
-	
+@media screen and (max-width:800px) {
+	.timer-options-yes {
+		color: rgb(0, 0, 0);
+	}
 }
 
 .timer-options-no {
 	visibility: hidden;
+}
+
+.quiz {
+	height: 90vh;
+	width: 90vw;
+	border-radius:15px;
+	background:linear-gradient(to bottom, #aeccd8 5%, #51aa88 100%);
 }
 
 .inquizheader {
@@ -121,13 +146,6 @@
 	background-color:#6f0ac2;
 }
 
-.quiz {
-	height: 100vh;
-	background:linear-gradient(to bottom, #aeccd8 5%, #51aa88 100%);
-	align-items: center;
-	justify-content: center;
-}
-
 .submit-answer-btn {
 	width: 10vw;
 	height: 45px;
@@ -175,4 +193,52 @@
 .timer {
 	width: 125px;
 	height: 45px;
+}
+
+.results {
+	background-color: red;
+	height: 90vh;
+	width: 90vw;
+}
+
+.results-btns {
+	
+}
+
+.play-again-btn {
+	width: 10vw;
+	height: 10vh;
+	box-shadow:inset 0px 1px 0px 0px #bee2f9;
+	background:linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
+	background-color:#63b8ee;
+	border-radius:10px;
+	border:1px solid #3866a3;
+	cursor:pointer;
+	color:#14396a;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #7cacde;
+	vertical-align: middle;
+}
+
+.return-to-main-menu-btn {
+	width: 30vw;
+	height: 10vh;
+	box-shadow:inset 0px 1px 0px 0px #bee2f9;
+	background:linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
+	background-color:#63b8ee;
+	border-radius:10px;
+	border:1px solid #3866a3;
+	cursor:pointer;
+	color:#14396a;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #7cacde;
+	vertical-align: middle;
 }

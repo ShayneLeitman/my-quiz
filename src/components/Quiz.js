@@ -81,13 +81,18 @@ class Quiz extends Component {
         await axios.get(getQuestion)
         .then(function (response) {
             let optionsArray = response.data.results[0].incorrect_answers
-            optionsArray.push(response.data.results[0].correct_answer)
+            optionsArray.push(response.data.results[0].correct_answer.replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&"))
+            var i;
+            for (i = 0; i < optionsArray.length - 1; i++) {
+                optionsArray[i] = optionsArray[i].replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+            }
+            let ans = optionsArray[optionsArray.length - 1]
             let newArr = self.randomizeArray(optionsArray)
-            let curquestion = response.data.results[0].question
+            let curquestion = response.data.results[0].question.replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&")
             console.log("Question")
             self.setState((prevState, props) => ({
-                qAnswer: response.data.results[0].correct_answer,
-                curQuestion: curquestion.replace(/&quot;/g, '"'),
+                qAnswer: ans,
+                curQuestion: curquestion,
                 curOptions: newArr,
                 curQuestionNum: prevState.curQuestionNum + 1,
             }));
