@@ -18,7 +18,7 @@ class Quiz extends Component {
             curScore: 0,
             qAnswer: "",
             playerAnswer: "",
-            curQuestionNum: 0,
+            curQuestionNum: 1,
             questionInProgress: false,
             curTimer: null,
         }
@@ -94,7 +94,6 @@ class Quiz extends Component {
                 qAnswer: ans,
                 curQuestion: curquestion,
                 curOptions: newArr,
-                curQuestionNum: prevState.curQuestionNum + 1,
             }));
         })
         .catch(function (error) {
@@ -157,11 +156,11 @@ class Quiz extends Component {
 
     async nextQuestionOrResults(event) {
         if (this.state.curQuestionNum < this.props.totalquestions) {
-            this.setState({
+            this.setState((prevState, props) => ({
                 playerAnswer: "",
                 questionInProgress: true,
-
-            })
+                curQuestionNum: prevState.curQuestionNum + 1,
+            }))
             await this.getNewQuestion()
             if (this.props.timerselected) {
                 this.setState({

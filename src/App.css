@@ -62,6 +62,11 @@
 
 .timer-options-no {
 	visibility: hidden;
+	margin-bottom: 100px;
+}
+
+.timer-options-yes {
+	margin-bottom: 100px;
 }
 
 .start-quiz-btn {
