@@ -5,34 +5,37 @@
 }
 
 .test1 {
-	background-color: #bb0349;
+	background-color: #7f45c2;
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	overflow: auto;
 }
 
 .main-menu {
+	height: 90vh;
 	width: 90vw;
+	min-height: 500px;
+	margin: 5vh;
+	background:linear-gradient(to bottom, #ff1414 5%, #bfa2d3 100%)
 }
 
 .jumbotron-main-menu {
-	min-height: 200px;
-	height: 20vh;
+	padding-top: 6vh;
+	min-height: 150px;
+	height: auto;
 	color: rgb(62, 200, 255);
-	background-color: rgb(212, 14, 14);
-	border-radius: 15px 15px 0px 0px;
-	background:linear-gradient(to bottom, #ff1414 5%, #bfa2d3 100%);
+}
+
+.jumbotron-p {
+
 }
 
 .main-menu-form {
-	margin-top: 0px;
-	margin-bottom: 10vh;
-	min-height: 35vh;
+	padding-top: 6vh;
+	height: auto;
+	min-height: 300px;
 	color: rgb(0, 4, 255);
-	width: 90vw;
-	background:linear-gradient(to top, #a12121 5%, #bfa2d3 100%);
 }
 
 .mm-pname-tb{
@@ -62,7 +65,6 @@
 }
 
 .start-quiz-btn {
-	
 	height: 6vh;
 	width: 15vw;
 	min-height: 45px;
@@ -77,6 +79,8 @@
 }
 
 .quiz {
+	min-height: 600px;
+	margin: 5vh;
 	height: 90vh;
 	width: 90vw;
 	border-radius:15px;
@@ -84,6 +88,7 @@
 }
 
 .inquizheader {
+	padding-top: 6vh;
 	font-family:Arial;
 	font-size:20px;
 	color:#3a8a9e;
@@ -159,8 +164,10 @@
 }
 
 .submit-answer-btn {
-	width: 10vw;
-	height: 45px;
+	height: 6vh;
+	width: 15vw;
+	min-height: 45px;
+	min-width: 50px;
 	box-shadow:inset 0px 1px 0px 0px #bee2f9;
 	background:linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
 	background-color:#63b8ee;
@@ -183,8 +190,10 @@
 }
 
 .view-results-btn, .next-question-btn {
-	width: 125px;
-	height: 45px;
+	height: 6vh;
+	width: 15vw;
+	min-height: 45px;
+	min-width: 50px;
 	box-shadow:inset 0px 1px 0px 0px #bee2f9;
 	background:linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
 	background-color:#63b8ee;
@@ -256,6 +265,12 @@
 }
 
 @media only screen and (max-width:800px) {
+	html,
+    body{
+    width:100%;
+    overflow-x:hidden;
+	}
+	
 	.start-quiz-btn {
 			margin-top: 1vh;
 			height: 7vh;
@@ -263,5 +278,22 @@
 			background:linear-gradient(to bottom, #50abf7 5%, #6e58be 100%);
 			border-radius:15px;
 			border:1px solid #d6bcd6;
-		}
 	}
+
+	.view-results-btn, .next-question-btn, .submit-answer-btn {
+		height: 6vh;
+		width: 25vw;
+	}
+
+	.option-button, .selected-option, .selected-correct, .selected-incorrect {
+		width: 90%;
+	}
+
+	.inquizheader {
+		margin-bottom: 20px;
+	}
+
+	.answer-options {
+		margin: 10px;;
+	}
+}

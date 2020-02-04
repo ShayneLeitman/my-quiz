@@ -86,7 +86,7 @@ class MainMenu extends Component {
         <div className="main-menu">
           <div className="jumbotron-main-menu">
           <h1>Welcome to the quiz app!</h1>
-          <p>
+          <p className="jumbotron-p">
             This is a simple quiz app that takes it's questions from
              an online question database that was made available for free use!
           </p>
