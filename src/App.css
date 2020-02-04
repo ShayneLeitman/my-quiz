@@ -15,7 +15,7 @@
 .main-menu {
 	height: 90vh;
 	width: 90vw;
-	min-height: 500px;
+	min-height: 550px;
 	margin: 5vh;
 	background:linear-gradient(to bottom, #ff1414 5%, #bfa2d3 100%)
 }
@@ -79,7 +79,7 @@
 }
 
 .quiz {
-	min-height: 600px;
+	min-height: 650px;
 	margin: 5vh;
 	height: 90vh;
 	width: 90vw;
@@ -212,18 +212,27 @@
 }
 
 .timer {
-	width: 125px;
-	height: 45px;
+	font-size: 20px;
+	color: #001aff;
+	margin-left: 10px;
+	display:inline-block
 }
 
 .results {
-	background-color: red;
+	background:linear-gradient(to bottom, #8590c2 5%, #3545db 100%);
+	min-height: 300px;
+	margin: 5vh;
 	height: 90vh;
 	width: 90vw;
 }
 
-.results-btns {
+.results-text {
+	padding-top: 10vh;
+	color: #b7c7d1;
+}
 
+.results-btns {
+	padding-top: 10vh;
 }
 
 .play-again-btn {
@@ -243,6 +252,9 @@
 	text-decoration:none;
 	text-shadow:0px 1px 0px #7cacde;
 	vertical-align: middle;
+	margin-right: 10px;
+	align-items: center;
+	justify-content: center;
 }
 
 .return-to-main-menu-btn {
@@ -261,10 +273,9 @@
 	padding:6px 24px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #7cacde;
-	vertical-align: middle;
 }
 
-@media only screen and (max-width:800px) {
+@media only screen and (max-width:800px), (max-height:550px) {
 	html,
     body{
     width:100%;
@@ -281,8 +292,11 @@
 	}
 
 	.view-results-btn, .next-question-btn, .submit-answer-btn {
-		height: 6vh;
+		height: 9vh;
 		width: 25vw;
+		display: flex;
+		align-items: center;
+		justify-content: center
 	}
 
 	.option-button, .selected-option, .selected-correct, .selected-incorrect {
@@ -295,5 +309,21 @@
 
 	.answer-options {
 		margin: 10px;;
+	}
+
+	.results {
+		min-height: 400px;
+	}
+
+	.results-btns {
+		display: inline-block;
+	}
+
+	.play-again-btn, .return-to-main-menu-btn {
+		min-height: 60px;
+		width: 170px;
+		display: flex;
+		align-items: center;
+		justify-content: center
 	}
 }

@@ -79,15 +79,15 @@ class Quiz extends Component {
         var getQuestion = "https://opentdb.com/api.php?amount=1"
         getQuestion += "&token=" + this.state.curToken
         await axios.get(getQuestion)
-        .then(function (response) {
-            let optionsArray = response.data.results[0].incorrect_answers
+        .then(async function (response) {
+            let optionsArray = await response.data.results[0].incorrect_answers
             optionsArray.push(response.data.results[0].correct_answer.replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&"))
             var i;
             for (i = 0; i < optionsArray.length - 1; i++) {
                 optionsArray[i] = optionsArray[i].replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
             }
             let ans = optionsArray[optionsArray.length - 1]
-            let newArr = self.randomizeArray(optionsArray)
+            let newArr = await self.randomizeArray(optionsArray)
             let curquestion = response.data.results[0].question.replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&")
             console.log("Question")
             self.setState((prevState, props) => ({
@@ -123,7 +123,6 @@ class Quiz extends Component {
     }
 
     timerCountDown() {
-        //console.log("timer")
         let tmpTime = this.state.curTimer
         if (tmpTime > 0 && 
             this.state.questionInProgress !== false) {
@@ -136,9 +135,9 @@ class Quiz extends Component {
 
     renderQuestion() {
         return (
-                <Question
-                curquestion={ this.state.curQuestion }
-                />
+            <Question
+            curquestion={ this.state.curQuestion }
+            />
         )
     }
 
@@ -156,14 +155,14 @@ class Quiz extends Component {
         }
     }
 
-    nextQuestionOrResults(event) {
+    async nextQuestionOrResults(event) {
         if (this.state.curQuestionNum < this.props.totalquestions) {
             this.setState({
                 playerAnswer: "",
                 questionInProgress: true,
 
             })
-            this.getNewQuestion()
+            await this.getNewQuestion()
             if (this.props.timerselected) {
                 this.setState({
                     curTimer: this.props.time,

@@ -4,9 +4,11 @@ function Results(props) {
 
     return (
         <div className="results">
-            <h1>Congratulations {props.playername}!</h1>
-            <p>Your score was:</p>
-            <p>{props.score} / {props.totalquestions}</p>
+            <div className="results-text">
+                <h1>Congratulations {props.playername}!</h1>
+                <p>Your score was:</p>
+                <p>{props.score} / {props.totalquestions}</p>
+            </div>
             <div className="results-btns">
                 <button
                 className="play-again-btn"
