@@ -64,7 +64,9 @@ class MainMenu extends Component {
           "timer-options-yes" : "timer-options-no"} >
             <label>
               Seconds:
-              <select name="timer"
+              <select 
+              className="mm-timer-options"
+              name="timer"
               defaultValue={this.props.timerselected ? this.props.timer : "30"}
               onChange={this.handleChange}
               >
@@ -82,18 +84,19 @@ class MainMenu extends Component {
   
       return (
         <div className="main-menu">
-          <Jumbotron fluid className="jumbotron-main-menu">
+          <div className="jumbotron-main-menu">
           <h1>Welcome to the quiz app!</h1>
           <p>
             This is a simple quiz app that takes it's questions from
              an online question database that was made available for free use!
           </p>
-          </Jumbotron>
+          </div>
           <div className="main-menu-form">
             <form>
               <label>
                 Enter Player Name:
                 <input
+                className="mm-pname-tb"
                   name="playername"
                   type="text"
                   defaultValue={this.state.playername}
@@ -105,6 +108,7 @@ class MainMenu extends Component {
               <label>
                 Enter number of questions you would like:
                 <input
+                className="mm-numq-number"
                   name="numQuestions"
                   type="number"
                   min="1"
@@ -114,9 +118,10 @@ class MainMenu extends Component {
                 />
               </label>
               <br />
-              <label>   
-                Check this box to enable the timer:
+              <label className="timer-checkbox">   
+                Enable Timer:
                 <input
+                className="mm-timer-checkbox"
                   name="timerSelected"
                   type="checkbox"
                   checked={this.state.timerSelected}
@@ -124,7 +129,6 @@ class MainMenu extends Component {
                 />
               </label>
               {this.renderTimerOption()}
-              <br />
               <br />
               <label>
                 <button
