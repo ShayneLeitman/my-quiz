@@ -58,15 +58,15 @@
 	background-color: #00d9ff;
 	border: 2px solid #2903ff;
 	border-radius:10px;
+	margin-bottom: 100px;
 } 
 
 .timer-options-no {
 	visibility: hidden;
-	margin-bottom: 100px;
 }
 
 .timer-options-yes {
-	margin-bottom: 100px;
+
 }
 
 .start-quiz-btn {
@@ -328,6 +328,10 @@
     width:100%;
     overflow-x:hidden;
 	}
+
+	.mm-timer-options {
+		margin-bottom: 10px;
+	} 
 	
 	.start-quiz-btn {
 			margin-top: 1vh;
