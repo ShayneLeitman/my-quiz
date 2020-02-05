@@ -165,7 +165,14 @@
 
 .selected-option:hover {
   	background:linear-gradient(to bottom, #6f0ac2 5%, #9303e6 100%);
-	background-color:#6f0ac2;
+}
+
+.selected-correct {
+	background-color:#006d00;
+}
+
+.selected-incorrect {
+	background-color:#8b0000;
 }
 
 .submit-answer-btn {

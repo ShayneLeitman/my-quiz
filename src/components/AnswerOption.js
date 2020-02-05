@@ -6,12 +6,14 @@ function AnswerOption(props) {
         <div className="answer-option">
             <button
                 type="button"
-                className={ (props.playeranswer === props.curoption) ?
-                    (props.answer === null) ?
-                        'selected-option' :
-                            (props.answer === props.curoption) ?
-                                'selected-correct' : 'selected-incorrect'
-                    : 'option-button'
+                className={
+                    (props.questioninprogress) ?
+                        (props.playeranswer === props.curoption) ?
+                            'selected-option' : 'option-button'
+                    :   (props.answer === props.curoption) ?
+                            'selected-correct'
+                        : (props.playeranswer === props.curoption) ?
+                            'selected-incorrect' : 'option-button'
                 }
                 onClick={() => props.updateanswer(props.curoption)}
                 disabled={!props.questioninprogress}

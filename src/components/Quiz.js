@@ -225,7 +225,7 @@ class Quiz extends Component {
             curoption={option}
             playeranswer={this.state.playerAnswer}
             updateanswer={this.updatePlayerAnswer}
-            answer={this.state.curAnswer}
+            answer={this.state.qAnswer}
             questioninprogress={this.state.questionInProgress}
             />
 
