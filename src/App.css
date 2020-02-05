@@ -141,6 +141,23 @@
   	text-shadow:0px 1px 0px #e1e2ed;
 }
 
+.option-button-no-hover {
+	width:30vw;
+	box-shadow: 3px 4px 0px 0px #899599;
+	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+	background-color:#ededed;
+	border-radius:15px;
+	border:1px solid #d6bcd6;
+	display:inline-block;
+	cursor:pointer;
+	color:#3a8a9e;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 25px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #e1e2ed;
+}
+
 .option-button:hover {
   	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
 	background-color:#bab1ba;
@@ -169,10 +186,28 @@
 
 .selected-correct {
 	background-color:#006d00;
+	border-radius:15px;
+	border:1px solid #d6bcd6;
+	width:30vw;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 25px;
+	text-decoration:none;
+	color:#ffffff;
+	display:inline-block;
 }
 
 .selected-incorrect {
 	background-color:#8b0000;
+	border-radius:15px;
+	border:1px solid #d6bcd6;
+	width:30vw;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 25px;
+	text-decoration:none;
+	color:#ffffff;
+	display:inline-block;
 }
 
 .submit-answer-btn {
@@ -311,7 +346,7 @@
 		justify-content: center
 	}
 
-	.option-button, .selected-option, .selected-correct, .selected-incorrect {
+	.option-button, .option-button-no-hover, .selected-option, .selected-correct, .selected-incorrect {
 		width: 90%;
 	}
 

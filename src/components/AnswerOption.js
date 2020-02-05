@@ -13,7 +13,7 @@ function AnswerOption(props) {
                     :   (props.answer === props.curoption) ?
                             'selected-correct'
                         : (props.playeranswer === props.curoption) ?
-                            'selected-incorrect' : 'option-button'
+                            'selected-incorrect' : 'option-button-no-hover'
                 }
                 onClick={() => props.updateanswer(props.curoption)}
                 disabled={!props.questioninprogress}
