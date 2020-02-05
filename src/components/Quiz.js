@@ -11,6 +11,7 @@ class Quiz extends Component {
         super()
 
         this.state = {
+            allQuestionData: null,
             curToken:"",
             curQuestion: "",
             curOptions: [],
@@ -36,7 +37,8 @@ class Quiz extends Component {
         this.renderTimer = this.renderTimer.bind(this);
         this.startTimer = this.startTimer.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
-
+        this.getQuestionData = this.getQuestionData.bind(this);
+        this.setupQuestion = this.setupQuestion.bind(this);
     }
 
     componentWillUnmount() {
@@ -65,13 +67,50 @@ class Quiz extends Component {
                 curToken: this.props.token
             })
         }
-        this.getNewQuestion()
+        await this.getQuestionData()
+
+        this.setupQuestion()
+
         this.setState({
             questionInProgress: true,
             curTimer: this.props.time,
         }, () => {if (this.props.timerselected) {
             this.startTimer()
         }})
+    }
+
+    async getQuestionData() {
+        var self = this;
+        var getQuestion = "https://opentdb.com/api.php?amount="
+        getQuestion += this.props.totalquestions + "&token=" + this.state.curToken
+        await axios.get(getQuestion)
+        .then(async function (response) {
+            self.setState({
+                allQuestionData: response.data.results,
+            })
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    setupQuestion() {
+        let curIndex = this.state.curQuestionNum - 1
+        let optionsArray = this.state.allQuestionData[curIndex].incorrect_answers
+        optionsArray.push(this.state.allQuestionData[curIndex].correct_answer.replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&"))
+        var i;
+        for (i = 0; i < optionsArray.length - 1; i++) {
+            optionsArray[i] = optionsArray[i].replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+        }
+        let ans = optionsArray[optionsArray.length - 1]
+        let newArr = this.randomizeArray(optionsArray)
+        let curquestion = this.state.allQuestionData[curIndex].question.replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&")
+        this.setState({
+            qAnswer: ans,
+            curQuestion: curquestion,
+            curOptions: newArr,
+        });
     }
 
     async getNewQuestion() {
@@ -158,12 +197,15 @@ class Quiz extends Component {
         if (this.state.curQuestionNum < this.props.totalquestions) {
             this.setState((prevState, props) => ({
                 playerAnswer: "",
-                questionInProgress: true,
                 curQuestionNum: prevState.curQuestionNum + 1,
-            }))
-            await this.getNewQuestion()
+            }), () => {
+                this.setupQuestion();
+                //console.log("Runnign setupQ")
+            })
+        
             if (this.props.timerselected) {
                 this.setState({
+                    questionInProgress: true,
                     curTimer: this.props.time,
                 }, this.startTimer()
                 )
