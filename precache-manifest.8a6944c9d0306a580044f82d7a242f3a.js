@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f6ac819d0bf1d076cfb8e599050431b4",
+    "revision": "ef3110ba39a6ddfab494c1d1a278686f",
     "url": "/my-quiz/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/my-quiz/static/css/2.47e06e2e.chunk.css"
   },
   {
-    "revision": "87f54601121d945011db",
-    "url": "/my-quiz/static/css/main.86813d89.chunk.css"
+    "revision": "54fc203b9c779d088a3e",
+    "url": "/my-quiz/static/css/main.7f3a3b98.chunk.css"
   },
   {
     "revision": "c9c4f81635f4e60fe310",
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/my-quiz/static/js/2.b063e8f1.chunk.js.LICENSE"
   },
   {
-    "revision": "87f54601121d945011db",
+    "revision": "54fc203b9c779d088a3e",
     "url": "/my-quiz/static/js/main.0a4dc3ef.chunk.js"
   },
   {
