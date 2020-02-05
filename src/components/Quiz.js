@@ -195,10 +195,12 @@ class Quiz extends Component {
 
     async nextQuestionOrResults(event) {
         if (this.state.curQuestionNum < this.props.totalquestions) {
+            console.log("b4" + this.state.curQuestionNum)
             this.setState((prevState, props) => ({
                 playerAnswer: "",
                 curQuestionNum: prevState.curQuestionNum + 1,
             }), () => {
+                console.log("aft" + this.state.curQuestionNum)
                 this.setupQuestion();
                 //console.log("Runnign setupQ")
             })
@@ -209,6 +211,10 @@ class Quiz extends Component {
                     curTimer: this.props.time,
                 }, this.startTimer()
                 )
+            } else {
+                this.setState({
+                    questionInProgress: true,
+                })
             }
         } else {
             this.props.viewresults(this.state.curScore)
